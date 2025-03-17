@@ -1,0 +1,14 @@
+{
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "cursor.chat.terminalShowHoverHint": false,
+  "cursor.cmdk.autoSelect": false,
+  "cursor.composer.shouldAutoSaveNonAgent": false
+}
