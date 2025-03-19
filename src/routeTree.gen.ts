@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as StopwatchImport } from './routes/stopwatch'
 import { Route as RockPaperScissorsImport } from './routes/rock-paper-scissors'
 import { Route as IndexImport } from './routes/index'
 import { Route as PathlessLayoutNestedLayoutImport } from './routes/_pathlessLayout/_nested-layout'
@@ -18,6 +19,12 @@ import { Route as PathlessLayoutNestedLayoutRouteBImport } from './routes/_pathl
 import { Route as PathlessLayoutNestedLayoutRouteAImport } from './routes/_pathlessLayout/_nested-layout/route-a'
 
 // Create/Update Routes
+
+const StopwatchRoute = StopwatchImport.update({
+  id: '/stopwatch',
+  path: '/stopwatch',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const RockPaperScissorsRoute = RockPaperScissorsImport.update({
   id: '/rock-paper-scissors',
@@ -70,6 +77,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RockPaperScissorsImport
       parentRoute: typeof rootRoute
     }
+    '/stopwatch': {
+      id: '/stopwatch'
+      path: '/stopwatch'
+      fullPath: '/stopwatch'
+      preLoaderRoute: typeof StopwatchImport
+      parentRoute: typeof rootRoute
+    }
     '/_pathlessLayout/_nested-layout': {
       id: '/_pathlessLayout/_nested-layout'
       path: ''
@@ -117,6 +131,7 @@ const PathlessLayoutNestedLayoutRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/rock-paper-scissors': typeof RockPaperScissorsRoute
+  '/stopwatch': typeof StopwatchRoute
   '': typeof PathlessLayoutNestedLayoutRouteWithChildren
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
@@ -125,6 +140,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/rock-paper-scissors': typeof RockPaperScissorsRoute
+  '/stopwatch': typeof StopwatchRoute
   '': typeof PathlessLayoutNestedLayoutRouteWithChildren
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
@@ -134,6 +150,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/rock-paper-scissors': typeof RockPaperScissorsRoute
+  '/stopwatch': typeof StopwatchRoute
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
   '/_pathlessLayout/_nested-layout/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/_pathlessLayout/_nested-layout/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
@@ -141,13 +158,20 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/rock-paper-scissors' | '' | '/route-a' | '/route-b'
+  fullPaths:
+    | '/'
+    | '/rock-paper-scissors'
+    | '/stopwatch'
+    | ''
+    | '/route-a'
+    | '/route-b'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/rock-paper-scissors' | '' | '/route-a' | '/route-b'
+  to: '/' | '/rock-paper-scissors' | '/stopwatch' | '' | '/route-a' | '/route-b'
   id:
     | '__root__'
     | '/'
     | '/rock-paper-scissors'
+    | '/stopwatch'
     | '/_pathlessLayout/_nested-layout'
     | '/_pathlessLayout/_nested-layout/route-a'
     | '/_pathlessLayout/_nested-layout/route-b'
@@ -157,12 +181,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RockPaperScissorsRoute: typeof RockPaperScissorsRoute
+  StopwatchRoute: typeof StopwatchRoute
   PathlessLayoutNestedLayoutRoute: typeof PathlessLayoutNestedLayoutRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RockPaperScissorsRoute: RockPaperScissorsRoute,
+  StopwatchRoute: StopwatchRoute,
   PathlessLayoutNestedLayoutRoute: PathlessLayoutNestedLayoutRouteWithChildren,
 }
 
@@ -178,6 +204,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/rock-paper-scissors",
+        "/stopwatch",
         "/_pathlessLayout/_nested-layout"
       ]
     },
@@ -186,6 +213,9 @@ export const routeTree = rootRoute
     },
     "/rock-paper-scissors": {
       "filePath": "rock-paper-scissors.tsx"
+    },
+    "/stopwatch": {
+      "filePath": "stopwatch.tsx"
     },
     "/_pathlessLayout/_nested-layout": {
       "filePath": "_pathlessLayout/_nested-layout.tsx",
